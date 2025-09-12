@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5FF15E9C2E74CB96005D4023 /* readMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 5FF15E9A2E74CB8A005D4023 /* readMe.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		5FF15E682E70AE74005D4023 /* Coffee Rest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coffee Rest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FF15E9A2E74CB8A005D4023 /* readMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readMe.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +37,7 @@
 		5FF15E5F2E70AE74005D4023 = {
 			isa = PBXGroup;
 			children = (
+				5FF15E9A2E74CB8A005D4023 /* readMe.md */,
 				5FF15E6A2E70AE74005D4023 /* Coffee Rest */,
 				5FF15E692E70AE74005D4023 /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FF15E9C2E74CB96005D4023 /* readMe.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
