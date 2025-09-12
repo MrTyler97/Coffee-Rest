@@ -44,34 +44,61 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack{
-            VStack{
-                Text("When do you want to wake up?")
-                    .font(.headline)
-                // Date picker allows us to choose dates. Can only use Date object not DateComponents
-                DatePicker("Select a wake up time" , selection: $wakeUp, displayedComponents:  .hourAndMinute)
-                    .labelsHidden()
-                    .padding()
-                
-                Text("Desired amount of sleep?")
-                    .font(.headline)
-                // Stepper adds a +/- counter to a variable to change. From range of 4 to 12 hours
-                Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
-                    .padding()
-                
-                Text("How much coffee did you intake?")
-                    .font(.headline)
-                Stepper("\(coffeIntake) cups", value: $coffeIntake, in: 1...10)
-                    .padding()
-                
-            }
-            .navigationTitle("Coffee Rest")
-            .padding()
-            .alert(alertTitle, isPresented: $alertShowing){
-                Button("Ok") {}
-            } message: {
-                Text(alertMessage)
-            }
-            Button("Ask AI", action: calculateSleep)
+                Form{
+                    Section{
+                        VStack{
+                            HStack{
+                                // Centering
+                                Text("When do you want to wake up?")
+                                    .font(.headline)
+                            }
+                            // Date picker allows us to choose dates. Can only use Date object not DateComponents
+                            HStack{
+                                Spacer()
+                                DatePicker("" , selection: $wakeUp, displayedComponents:  .hourAndMinute)
+                                    .labelsHidden()
+                                Spacer()
+                            }
+                        }
+                    }
+                    Section{
+                        VStack{
+                            Text("Desired amount of sleep?")
+                                .font(.headline)
+                            // Stepper adds a +/- counter to a variable to change. From range of 4 to 12 hours
+                            Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
+                                .padding()
+                        }
+                    }
+                    VStack{
+                        Text("How much coffee did you intake?")
+                            .font(.headline)
+                        Stepper("\(coffeIntake) cups", value: $coffeIntake, in: 1...10)
+                            .padding()
+                    }
+                }
+                .navigationTitle("Coffee Rest")
+                // SafeAreaInset works well with forms to have floating elements
+                .safeAreaInset(edge: .bottom ){
+                    Button("Ask AI", action: calculateSleep)
+                        .buttonStyle(.bordered)  // Gets the behavior + base style
+                        .controlSize(.large)
+                        .clipShape(.capsule)
+                        .tint(.white)
+                        .shadow(radius: 7)
+                        .padding(.bottom, 150)
+                }
+                .alert(alertTitle, isPresented: $alertShowing){
+                    Button("Ok") {}
+                } message: {
+                    Text(alertMessage)
+                }
+                //To remove Form default background color must hide content background
+                .scrollContentBackground(.hidden)
+                .background(Color.brown.opacity(0.3))
+                .background(Color.green.opacity(0.2))
+                // Subtle texture
+                .background(.regularMaterial)
         }
     }
 }
