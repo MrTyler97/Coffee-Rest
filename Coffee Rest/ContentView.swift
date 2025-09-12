@@ -11,7 +11,7 @@ import CoreML
 struct ContentView: View {
     
     @State var sleepAmount = 8.0
-    @State var wakeUp = Date.now
+    @State var wakeUp = defaultTime
     @State var coffeIntake = 1
     @State var alertTitle = ""
     @State var alertMessage = ""
@@ -31,7 +31,7 @@ struct ContentView: View {
             let prediction = try model.prediction(wake: Double(hours + minutes), estimatedSleep: sleepAmount , coffee: Double(coffeIntake))
             // Subtract desired wake up time from predicted sleep
             let sleepTime = wakeUp - prediction.actualSleep
-            alertTitle = "Your preferred bed time is... "
+            alertTitle = "Your recommended bed time is... "
             alertMessage = sleepTime.formatted(date: .omitted, time: .shortened)
         } catch{
             alertTitle = "Error"
@@ -39,6 +39,14 @@ struct ContentView: View {
         }
         
         alertShowing = true
+    }
+    // Set the default time by extrscting hour and minute and intserting it into Date object
+    // Static properties exist before any ContentView instance is created. If not declared as static "default time" doesent exist on initialization above.
+    static var defaultTime: Date {
+        var components = DateComponents()
+        components.hour = 7
+        components.minute = 0
+        return Calendar.current.date(from: components) ?? .now
     }
     
     
@@ -73,7 +81,7 @@ struct ContentView: View {
                     VStack{
                         Text("How much coffee did you intake?")
                             .font(.headline)
-                        Stepper("\(coffeIntake) cups", value: $coffeIntake, in: 1...10)
+                        Stepper(coffeIntake == 1 ? "1 cup" : "\(coffeIntake) cups", value: $coffeIntake, in: 1...10)
                             .padding()
                     }
                 }
